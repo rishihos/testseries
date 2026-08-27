@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+
+<div class="auth-shell">
+  <div class="auth-card">
+    <svg width="32" height="32" style="margin-bottom:14px; color:var(--highlighter);"><use href="#icon-lock"/></svg>
+    <h1>Admin login</h1>
+    <p class="sub">Sign in to publish and manage test series.</p>
+
+    <%- include('../partials/flash') %>
+
+    <% if (!adminConfigured) { %>
+      <div class="flash flash-error">
+        No admin account exists yet. On the server, run <code>npm run setup</code> to create one.
+      </div>
+    <% } %>
+
+    <form method="POST" action="/admin/login">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

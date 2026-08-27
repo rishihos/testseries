@@ -1,0 +1,83 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+
+<section class="hero">
+  <svg class="hero-bg" viewBox="0 0 600 300" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="omr" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="8" cy="8" r="3.2" fill="none" stroke="#2a3555" stroke-width="1.4"/>
+      </pattern>
+    </defs>
+    <rect width="600" height="300" fill="url(#omr)"/>
+    <circle cx="128" cy="38" r="3.2" fill="#f5b301"/>
+    <circle cx="278" cy="98" r="3.2" fill="#33c481"/>
+    <circle cx="368" cy="8" r="3.2" fill="#f5b301"/>
+    <circle cx="8" cy="128" r="3.2" fill="#f5b301"/>
+    <circle cx="458" cy="68" r="3.2" fill="#f5b301"/>
+    <circle cx="548" cy="158" r="3.2" fill="#33c481"/>
+    <circle cx="188" cy="188" r="3.2" fill="#f5b301"/>
+  </svg>
+  <div class="container hero-inner">
+    <span class="eyebrow">Mock Tests · Previous Papers · Practice Sets</span>
+    <h1>Test Series</h1>
+    <p class="hero-sub">Full-length mock tests, sectional practice papers and previous year question papers, all in one place — attempt them under real exam conditions, then check your answers against the key.</p>
+
+    <div class="stat-strip">
+      <div class="stat">
+        <span class="stat-num"><%= posts.length %></span>
+        <span class="stat-label">Test Series</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num"><%= categories.length %></span>
+        <span class="stat-label">Categories</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <% if (categories.length) { %>
+    <div class="filter-row">
+      <a href="/" class="chip <%= !activeCategory ? 'is-active' : '' %>">All</a>
+      <% categories.forEach(function(cat) { %>
+        <a href="/?category=<%= encodeURIComponent(cat) %>" class="chip <%= activeCategory === cat ? 'is-active' : '' %>"><%= cat %></a>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <% if (posts.length === 0) { %>
+    <div class="empty-state">
+      <svg class="bubble-icon" width="48" height="48"><use href="#icon-bubbles"/></svg>
+      <h3>No test series published yet</h3>
+      <p>Check back soon, or log in to the admin panel to publish the first one.</p>
+    </div>
+  <% } else { %>
+    <div class="post-grid">
+      <% posts.forEach(function(post) { %>
+        <a href="/test-series/<%= post.slug %>" class="card">
+          <div class="card-thumb">
+            <% if (post.thumbnail) { %>
+              <img src="/uploads/<%= post.thumbnail %>" alt="<%= post.title %>">
+            <% } else { %>
+              <div class="thumb-placeholder"></div>
+            <% } %>
+            <span class="card-code"><%= post.code %></span>
+          </div>
+          <div class="card-body">
+            <span class="card-category"><%= post.category %></span>
+            <h3 class="card-title"><%= post.title %></h3>
+            <% if (post.description) { %><p class="card-desc"><%= post.description %></p><% } %>
+            <div class="card-meta">
+              <% if (post.duration) { %><span class="meta-item"><svg><use href="#icon-clock"/></svg><%= post.duration %></span><% } %>
+              <% if (post.totalQuestions) { %><span class="meta-item"><svg><use href="#icon-doc"/></svg><%= post.totalQuestions %> Qs</span><% } %>
+              <% if (post.totalMarks) { %><span class="meta-item"><svg><use href="#icon-target"/></svg><%= post.totalMarks %> marks</span><% } %>
+            </div>
+            <span class="card-cta">View test series <svg width="14" height="14"><use href="#icon-arrow-right"/></svg></span>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</main>
+
+<%- include('partials/footer') %>

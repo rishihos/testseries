@@ -1,0 +1,104 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+
+<main class="container admin-main admin-main-narrow">
+  <div class="admin-heading">
+    <div>
+      <h1><%= post ? 'Edit test series' : 'New test series' %></h1>
+      <p><%= post ? `Editing ${post.code}` : 'It publishes immediately unless you uncheck "Published" below.' %></p>
+    </div>
+  </div>
+
+  <%- include('../partials/flash') %>
+
+  <form method="POST" action="<%= post ? `/admin/posts/${post.id}` : '/admin/posts' %>" enctype="multipart/form-data" class="admin-form">
+    <div class="field">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required value="<%= post ? post.title : '' %>" placeholder="e.g. Full Syllabus Mock Test 4">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" list="category-suggestions" value="<%= post ? post.category : '' %>" placeholder="Mock Test">
+        <datalist id="category-suggestions">
+          <option value="Mock Test">
+          <option value="Previous Year Paper">
+          <option value="Sectional Test">
+          <option value="Model Paper">
+          <option value="Practice Set">
+        </datalist>
+      </div>
+      <div class="field">
+        <label for="duration">Duration</label>
+        <input type="text" id="duration" name="duration" value="<%= post ? post.duration : '' %>" placeholder="180 min">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="totalQuestions">Total questions</label>
+        <input type="text" id="totalQuestions" name="totalQuestions" value="<%= post ? post.totalQuestions : '' %>" placeholder="90">
+      </div>
+      <div class="field">
+        <label for="totalMarks">Total marks</label>
+        <input type="text" id="totalMarks" name="totalMarks" value="<%= post ? post.totalMarks : '' %>" placeholder="300">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" placeholder="What this test covers, and anything students should know before attempting it."><%= post ? post.description : '' %></textarea>
+    </div>
+
+    <div class="field">
+      <label>Thumbnail image</label>
+      <% if (post && post.thumbnail) { %>
+        <div class="current-thumb">
+          <img src="/uploads/<%= post.thumbnail %>" alt="">
+          <span class="field-hint">Uploading a new image will replace this one.</span>
+        </div>
+      <% } %>
+      <label class="upload-drop">
+        <svg width="20" height="20"><use href="#icon-upload"/></svg>
+        <span>Click to choose an image (JPG, PNG, WEBP)</span>
+        <input type="file" name="thumbnail" accept=".jpg,.jpeg,.png,.webp">
+      </label>
+    </div>
+
+    <div class="field">
+      <label>Attachments</label>
+      <% if (post && post.attachments && post.attachments.length) { %>
+        <ul class="existing-attachments">
+          <% post.attachments.forEach(function(a) { %>
+            <li>
+              <label class="check-row">
+                <input type="checkbox" name="removeAttachmentIds" value="<%= a.id %>">
+                <span class="attachment-ext"><%= a.ext %></span>
+                <span class="attachment-name"><%= a.originalName %></span>
+                <span class="field-hint">remove</span>
+              </label>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+      <label class="upload-drop">
+        <svg width="20" height="20"><use href="#icon-upload"/></svg>
+        <span>Click to add files (PDF, DOC, DOCX, JPG, PNG - up to 8 files)</span>
+        <input type="file" name="attachments" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp" multiple>
+      </label>
+    </div>
+
+    <label class="check-row publish-row">
+      <input type="checkbox" name="published" <%= (!post || post.published) ? 'checked' : '' %>>
+      Published (visible on the site)
+    </label>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><%= post ? 'Save changes' : 'Publish test series' %></button>
+      <a href="/admin/dashboard" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>

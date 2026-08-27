@@ -1,0 +1,70 @@
+<%- include('../partials/head') %>
+<%- include('../partials/admin-nav') %>
+
+<main class="container admin-main">
+  <div class="admin-heading">
+    <div>
+      <h1>Test series</h1>
+      <p>Everything you've published, and anything still hidden.</p>
+    </div>
+    <a href="/admin/posts/new" class="btn btn-primary">
+      <svg width="15" height="15"><use href="#icon-plus"/></svg> New test series
+    </a>
+  </div>
+
+  <%- include('../partials/flash') %>
+
+  <% if (posts.length === 0) { %>
+    <div class="empty-state">
+      <svg class="bubble-icon" width="48" height="48"><use href="#icon-bubbles"/></svg>
+      <h3>Nothing published yet</h3>
+      <p>Create your first test series to see it here.</p>
+    </div>
+  <% } else { %>
+    <div class="table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Updated</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% posts.forEach(function(post) { %>
+            <tr>
+              <td class="mono muted"><%= post.code %></td>
+              <td>
+                <a href="/test-series/<%= post.slug %>" target="_blank" rel="noopener" class="row-title"><%= post.title %></a>
+              </td>
+              <td class="muted"><%= post.category %></td>
+              <td>
+                <form method="POST" action="/admin/posts/<%= post.id %>/toggle">
+                  <button type="submit" class="status-pill <%= post.published ? 'is-published' : 'is-hidden' %>">
+                    <%= post.published ? 'Published' : 'Hidden' %>
+                  </button>
+                </form>
+              </td>
+              <td class="mono muted small"><%= new Date(post.updatedAt).toLocaleDateString() %></td>
+              <td class="row-actions">
+                <a href="/admin/posts/<%= post.id %>/edit" class="btn btn-sm" title="Edit">
+                  <svg width="14" height="14"><use href="#icon-pencil"/></svg>
+                </a>
+                <form method="POST" action="/admin/posts/<%= post.id %>/delete" data-confirm="Delete &quot;<%= post.title %>&quot;? This can't be undone.">
+                  <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                    <svg width="14" height="14"><use href="#icon-trash"/></svg>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</main>
+
+<%- include('../partials/footer') %>

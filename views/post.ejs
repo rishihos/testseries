@@ -1,0 +1,48 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+
+<section class="post-header">
+  <div class="container">
+    <a href="/" class="back-link"><svg><use href="#icon-arrow-left"/></svg> All test series</a>
+    <span class="card-code"><%= post.code %></span>
+    <span class="eyebrow" style="display:block; margin-bottom:8px;"><%= post.category %></span>
+    <h1 class="post-title"><%= post.title %></h1>
+
+    <div class="info-strip">
+      <% if (post.duration) { %><span class="meta-item"><svg><use href="#icon-clock"/></svg> <%= post.duration %></span><% } %>
+      <% if (post.totalQuestions) { %><span class="meta-item"><svg><use href="#icon-doc"/></svg> <%= post.totalQuestions %> questions</span><% } %>
+      <% if (post.totalMarks) { %><span class="meta-item"><svg><use href="#icon-target"/></svg> <%= post.totalMarks %> marks</span><% } %>
+    </div>
+  </div>
+</section>
+
+<main class="container post-body">
+  <div>
+    <% if (post.thumbnail) { %>
+      <div class="post-thumb-lg"><img src="/uploads/<%= post.thumbnail %>" alt="<%= post.title %>"></div>
+    <% } %>
+    <% if (post.description) { %><p><%= post.description %></p><% } %>
+  </div>
+
+  <aside class="side-panel">
+    <h3>Files</h3>
+    <% if (post.attachments && post.attachments.length) { %>
+      <ul class="attachment-list">
+        <% post.attachments.forEach(function(a) { %>
+          <li>
+            <a class="attachment-row" href="/uploads/<%= a.filename %>" download="<%= a.originalName %>">
+              <span class="attachment-ext"><%= a.ext %></span>
+              <span class="attachment-name"><%= a.originalName %></span>
+              <span class="attachment-size"><%= a.size %></span>
+              <svg><use href="#icon-download"/></svg>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p style="font-size:0.85rem;">No files attached to this test series yet.</p>
+    <% } %>
+  </aside>
+</main>
+
+<%- include('partials/footer') %>

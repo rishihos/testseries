@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ts-seed-0001",
+    "code": "TS-2026-001",
+    "slug": "full-syllabus-mock-test-1",
+    "title": "Full Syllabus Mock Test 1",
+    "category": "Mock Test",
+    "description": "A complete full-length mock test covering every unit in the syllabus, built to match the exact pattern and difficulty level of the real exam. Attempt it under timed conditions for the most realistic practice.",
+    "duration": "180 min",
+    "totalQuestions": "90",
+    "totalMarks": "300",
+    "thumbnail": null,
+    "attachments": [],
+    "published": true,
+    "createdAt": "2026-07-01T05:30:00.000Z",
+    "updatedAt": "2026-07-01T05:30:00.000Z"
+  },
+  {
+    "id": "ts-seed-0002",
+    "code": "TS-2026-002",
+    "slug": "previous-year-paper-2024",
+    "title": "Previous Year Paper - 2024",
+    "category": "Previous Year Paper",
+    "description": "The official question paper from last year's exam, included here for practice along with a marking scheme. A good way to gauge the real difficulty level and time pressure.",
+    "duration": "180 min",
+    "totalQuestions": "90",
+    "totalMarks": "300",
+    "thumbnail": null,
+    "attachments": [],
+    "published": true,
+    "createdAt": "2026-07-03T09:15:00.000Z",
+    "updatedAt": "2026-07-03T09:15:00.000Z"
+  },
+  {
+    "id": "ts-seed-0003",
+    "code": "TS-2026-003",
+    "slug": "sectional-test-algebra",
+    "title": "Sectional Test - Algebra",
+    "category": "Sectional Test",
+    "description": "A focused, shorter test limited to the Algebra section, meant for topic-wise revision rather than full-length practice.",
+    "duration": "45 min",
+    "totalQuestions": "25",
+    "totalMarks": "75",
+    "thumbnail": null,
+    "attachments": [],
+    "published": true,
+    "createdAt": "2026-07-10T11:00:00.000Z",
+    "updatedAt": "2026-07-10T11:00:00.000Z"
+  }
+]
